@@ -1,0 +1,7 @@
+mock:
+  config:
+    origin-api: http://cscvieae528143
+    origin-load: false
+    origin-save: true
+server:
+  port: 8099

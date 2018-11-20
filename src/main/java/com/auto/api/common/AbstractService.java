@@ -45,7 +45,7 @@ public abstract class AbstractService<M extends AbstractConfig<O>, O extends Req
 		if (cockConfigs.isOriginLoad() && cockConfigs.isOriginSave() && request.isPresent()) {
 			Object map = serviceConfig.getFromRealApi(cockConfigs.getOriginUrl(), link, body);
 			O o = repository.findById(id).get();
-			serviceConfig.updateBody(o, body);
+			serviceConfig.updateBody(o, map);
 			repository.save(o);
 			return map;
 		}

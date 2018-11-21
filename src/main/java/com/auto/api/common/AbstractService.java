@@ -65,7 +65,15 @@ public abstract class AbstractService<M extends AbstractConfig<O>, O extends Req
 		return null;
 	}
 
-	public Object handlePost(String path, Map<String, String[]> para, Object body) {
+	public Object handlePost(String path, Map<String, String[]> para, Object body, String prefix) {
+		List<S> cockConfigsList = originRepo.findByPrefixUseV1(prefix);
+		@SuppressWarnings("unused")
+		S cockConfigs = null;
+		if(!cockConfigsList.isEmpty()) {
+			cockConfigs = cockConfigsList.get(0);
+		}else {
+			return null;
+		}
 		String url = textAnalyzer.buildUrl(path, para);
 		String link = textAnalyzer.removePrefixUrl(url, serviceConfig.getPrefix());
 		String id = textAnalyzer.buildId(link);
@@ -83,7 +91,15 @@ public abstract class AbstractService<M extends AbstractConfig<O>, O extends Req
 		return repository.save(o);
 	}
 
-	public Object handlePut(String path, Map<String, String[]> para, Object body) {
+	public Object handlePut(String path, Map<String, String[]> para, Object body, String prefix) {
+		List<S> cockConfigsList = originRepo.findByPrefixUseV1(prefix);
+		@SuppressWarnings("unused")
+		S cockConfigs = null;
+		if(!cockConfigsList.isEmpty()) {
+			cockConfigs = cockConfigsList.get(0);
+		}else {
+			return null;
+		}
 		String url = textAnalyzer.buildUrl(path, para);
 		String link = textAnalyzer.removePrefixUrl(url, serviceConfig.getPrefix());
 		String id = textAnalyzer.buildId(link);

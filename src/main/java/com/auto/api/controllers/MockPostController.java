@@ -22,24 +22,24 @@ public class MockPostController {
 	@Autowired
 	MockPostService mockPostService;
 	
-	@PostMapping(value = "/{str1}/**")
+	@PostMapping(value = "/{prefix}/**")
 	public Object create(
-	  @PathVariable String str1, HttpServletRequest request, @RequestBody Object body) { 
+	  @PathVariable String prefix, HttpServletRequest request, @RequestBody Object body) { 
 		
 		String restOfTheUrl = (String) request.getAttribute(
 			    HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		Map<String, String[]> para = request.getParameterMap();
-	    return mockPostService.handlePost(restOfTheUrl, para, body);
+	    return mockPostService.handlePost(restOfTheUrl, para, body, prefix);
 	}
 	
-	@PutMapping(value = "/{str1}/**")
+	@PutMapping(value = "/{prefix}/**")
 	public Object edit(
-	  @PathVariable String str1, HttpServletRequest request, @RequestBody Object body) { 
+	  @PathVariable String prefix, HttpServletRequest request, @RequestBody Object body) { 
 		
 		String restOfTheUrl = (String) request.getAttribute(
 			    HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		Map<String, String[]> para = request.getParameterMap();
-	    return mockPostService.handlePut(restOfTheUrl, para, body);
+	    return mockPostService.handlePut(restOfTheUrl, para, body, prefix);
 	}
 	
 

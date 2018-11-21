@@ -1,7 +1,6 @@
 package com.auto.api.common;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 public abstract class AbstractOriginConfig {
 	
@@ -14,7 +13,6 @@ public abstract class AbstractOriginConfig {
 	
 	private boolean originSave;
 	
-	@Indexed
 	private String prefixUseV1;
 	
 	public String getId() {

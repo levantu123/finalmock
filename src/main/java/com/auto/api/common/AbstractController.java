@@ -26,7 +26,7 @@ public abstract class AbstractController<M extends AbstractConfig<O>, T extends 
 		String restOfTheUrl = (String) request.getAttribute(
 			    HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		Map<String, String[]> para = request.getParameterMap();
-	    return abstractService.handlePost(restOfTheUrl, para, body);
+	    return abstractService.handlePost(restOfTheUrl, para, body,"");
 	}
 	
 	@PutMapping(value = "/{str1}/**")
@@ -36,7 +36,7 @@ public abstract class AbstractController<M extends AbstractConfig<O>, T extends 
 		String restOfTheUrl = (String) request.getAttribute(
 			    HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		Map<String, String[]> para = request.getParameterMap();
-	    return abstractService.handlePut(restOfTheUrl, para, body);
+	    return abstractService.handlePut(restOfTheUrl, para, body,"");
 	}
 	
 }

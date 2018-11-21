@@ -1,15 +1,15 @@
 package com.auto.api.common;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
-import com.auto.api.app.MockConfigs;
 import com.auto.api.lib.TextAnalyzer;
 
-public abstract class AbstractService<M extends AbstractConfig<O>, O extends Request, A extends AbstractRepository<O>> {
+public abstract class AbstractService<M extends AbstractConfig<O>, O extends Request, A extends AbstractRepository<O>, R extends AbstractOriginConfigRepository<S>, S extends AbstractOriginConfig> {
 	@Autowired
 	A repository;
 
@@ -17,23 +17,27 @@ public abstract class AbstractService<M extends AbstractConfig<O>, O extends Req
 	TextAnalyzer textAnalyzer;
 
 	@Autowired
-	private MockConfigs cockConfigs;
+	private R originRepo;
 
+	@Autowired
 	M serviceConfig;
 
 	@Autowired
 	AbstractFactory<O> factory;
 
-	public void setServiceConfig(M serviceConfig) {
-		this.serviceConfig = serviceConfig;
-	}
-
-	public Object handleGet(String path, Map<String, String[]> para, Object body) {
-
+	public Object handleGet(String prefix, String path, Map<String, String[]> para, Object body) {
+		List<S> cockConfigsList = originRepo.findByPrefixUseV1(prefix);
+		S cockConfigs = null;
+		if(!cockConfigsList.isEmpty()) {
+			cockConfigs = cockConfigsList.get(0);
+		}else {
+			return null;
+		}
 		String url = textAnalyzer.buildUrl(path, para);
 		String link = textAnalyzer.removePrefixUrl(url, "v1");
 		String id = textAnalyzer.buildId(link);
 
+		link = textAnalyzer.removePrefixUrl(link, prefix);
 		Optional<O> request = repository.findById(id);
 		if (cockConfigs.isOriginLoad() && cockConfigs.isOriginSave() && !request.isPresent()) {
 			Object map = serviceConfig.getFromRealApi(cockConfigs.getOriginUrl(), link, body);

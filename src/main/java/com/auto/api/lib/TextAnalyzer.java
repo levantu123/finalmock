@@ -24,7 +24,7 @@ public class TextAnalyzer {
 	}
 	
 	public String removePrefixUrl( String host, String prefix) {
-		return host.replace("/"+prefix, "");
+		return host.replaceFirst("/"+prefix, "");
 	}
 	
 	public String buildId(String link) {

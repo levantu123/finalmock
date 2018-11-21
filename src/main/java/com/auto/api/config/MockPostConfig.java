@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.auto.api.common.AbstractConfig;
-import com.auto.api.common.Request;
+import com.auto.api.model.MockData;
 
 @Service
-public class MockPostConfig<O extends Request> extends AbstractConfig<O>{
+public class MockPostConfig extends AbstractConfig<MockData>{
 
 	@Override
 	public String getPrefix() {
@@ -25,7 +25,7 @@ public class MockPostConfig<O extends Request> extends AbstractConfig<O>{
 	}
 	
 	@Override
-	public void updateBody(O o, Object body) {
+	public void updateBody(MockData o, Object body) {
 		o.setBodyPost(body);
 	}
 

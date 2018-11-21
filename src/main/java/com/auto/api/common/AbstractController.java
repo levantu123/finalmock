@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.HandlerMapping;
 
-public abstract class AbstractController<M extends AbstractConfig<O>, T extends AbstractService<M, O, A>, O extends Request, A extends AbstractRepository<O>> {
+public abstract class AbstractController<M extends AbstractConfig<O>, T extends AbstractService<M, O, A, R, S>, O extends Request, A extends AbstractRepository<O>, R extends AbstractOriginConfigRepository<S>, S extends AbstractOriginConfig> {
 	
 	@Autowired
 	T abstractService;

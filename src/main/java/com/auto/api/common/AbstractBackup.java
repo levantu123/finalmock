@@ -26,7 +26,7 @@ public abstract class AbstractBackup<A extends AbstractRepository<O>, O extends 
 		ZipOperator.zipDir(PATHZIP + "/AutoMock.zip", PATHHOME);
 		ZipOperator.cleanData(PATHHOME);
 		FileInputStream in = new FileInputStream(PATHZIP + "/AutoMock.zip");
-		byte[] zip = new byte[4096];
+		byte[] zip = new byte[in.available()];
 		in.read(zip);
 		in.close();
 		return zip;

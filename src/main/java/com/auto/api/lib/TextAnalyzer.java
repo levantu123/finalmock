@@ -28,11 +28,9 @@ public class TextAnalyzer {
 	}
 	
 	public String buildId(String link) {
-		String id = "";
-		String[] terms = link.split("/");
-		for(String term : terms) {
-			id += term+"-_";
-		}
+		String id = link.replace("/", "-SLASH-CODE-");
+		id = id.replace(" ", "-SPACE-CODE-");
+		id = id.replace("?", "-QUESTION-CODE-");
 		return id;
 	}
 }
